@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+
+/*
+ * Leo Club of Arawwala — "Field Notes"
+ *
+ * A documentary/editorial system. The club's work is presented the way a
+ * field journal presents it: numbered entries, wide photographs, generous
+ * measure, and almost no chrome. There are no cards anywhere on this site —
+ * structure comes from rules, numbers, and whitespace.
+ *
+ * Token names are ROLES, not hues. `bg-page`, not `bg-cream`. Renaming the
+ * palette later must not mean touching a single component.
+ */
+
+@theme {
+  /* --- Surfaces ------------------------------------------------------- */
+  /* Warm paper stock rather than white — the whole system sits on it. */
+  --color-page: #f8f5ee;
+  --color-panel: #f0ebe0;
+  --color-inverse: #16202e;
+  --color-on-inverse: #f3efe6;
+
+  /* --- Text ----------------------------------------------------------- */
+  --color-ink: #16202e;
+  --color-ink-muted: #4a566b;
+  --color-ink-faint: #7c8698;
+
+  /* --- Accent ---------------------------------------------------------- */
+  /* Rust: an ink-stamp red. Used for entry numbers, rules, and links only. */
+  --color-accent: #a8442a;
+  --color-accent-strong: #86341f;
+
+  /* --- Lines ----------------------------------------------------------- */
+  --color-rule: #ded6c6;
+  --color-rule-strong: #c3b8a2;
+
+  /* --- Type ------------------------------------------------------------ */
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Editorial scale: display sizes are deliberately far apart from body. */
+  --text-display: 4.5rem;
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.03em;
+  --text-title: 2.75rem;
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.02em;
+
+  /* --- Motion ---------------------------------------------------------- */
+  /* Documentary pacing: slow, few, never decorative. */
+  --ease-page: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    /* Anchors land below the header rather than under it. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* One visible focus style for the entire site. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* One measure for the whole site, header included. */
+  .wrap {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* A narrower measure for running prose — roughly 68 characters. */
+  .measure {
+    max-width: 38rem;
+  }
+
+  .band {
+    padding-block: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .band {
+      padding-block: 7rem;
+    }
+  }
+
+  /*
+   * Reveal. The visible state is the DEFAULT so content survives a failed
+   * script; the hook adds `is-hidden` after mount only when animating is safe.
+   */
+  .reveal {
+    transition:
+      opacity 700ms var(--ease-page),
+      transform 700ms var(--ease-page);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-hidden {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  /* The entry number that marks each field note. */
+  .entry-number {
+    font-family: var(--font-serif);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent);
+  }
+}
