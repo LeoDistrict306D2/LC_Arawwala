@@ -147,9 +147,22 @@ Static-friendly — every route prerenders. Any Node host or Vercel works:
 
 ---
 
-## Outstanding content
+## Content status
 
-Everything marked `TODO(content)` is placeholder and needs real values from the
-club: charter date, board roster, project records, photography, and contact
-details. Images in `public/images/` are generated solid-colour placeholders.
-The site renders correctly while these are incomplete.
+This site currently ships with **illustrative dummy content** — a complete
+club record (charter date, board roster, achievements, past presidents,
+project log, and a ten-item photo gallery) written in the real data shape, so
+every page, route and component renders exactly as it will once the club's
+own data lands. Nothing is empty or stubbed.
+
+Every file still carries a `TODO(content)` comment marking it as dummy data
+so it is unmistakable from the source. To go live with the real club:
+
+- Replace the names, dates, and numbers in `content/*.ts` with the club's
+  actual records.
+- Replace `public/images/logo/logo.png`, `public/images/hero/hero.png`, and
+  the shared `public/images/projects/placeholder.png` (referenced by every
+  project and gallery entry) with real photography.
+- Drop the `TODO(content)` comment once a file holds real data.
+
+No code changes are needed to go from dummy to real — only the content.
