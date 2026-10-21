@@ -151,4 +151,41 @@
     font-variant-numeric: tabular-nums;
     color: var(--color-accent);
   }
+
+  /*
+   * Entry splash. A single opacity fade — no scale, no slide, matching this
+   * site's motion language. Pure CSS: it plays and clears itself without any
+   * client JS, so the page stays reachable with JavaScript off.
+   */
+  .splash-screen {
+    animation: splash-out 400ms var(--ease-page) 2200ms forwards;
+  }
+
+  @keyframes splash-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .splash-screen {
+      animation-delay: 0ms;
+    }
+  }
+
+  /* Slow drift on the banner photo only — never a listing photo. */
+  .animate-ken-burns {
+    animation: ken-burns 18s var(--ease-page) infinite alternate;
+  }
+
+  @keyframes ken-burns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.07);
+    }
+  }
 }

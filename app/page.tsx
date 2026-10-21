@@ -55,7 +55,7 @@ export default function HomePage() {
       </section>
 
       <section className="wrap">
-        <Photo image={club.heroImage} ratio="wide" priority sizes="100vw" />
+        <Photo image={club.heroImage} ratio="wide" priority sizes="100vw" kenBurns />
       </section>
 
       {/* Ledger --------------------------------------------------------- */}

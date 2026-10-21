@@ -23,12 +23,15 @@ export function Photo({
   priority = false,
   sizes = '100vw',
   className,
+  kenBurns = false,
 }: {
   image: ImageRef;
   ratio?: keyof typeof ratios;
   priority?: boolean;
   sizes?: string;
   className?: string;
+  /** A slow, looping zoom. Reserved for the banner photo — never a listing photo. */
+  kenBurns?: boolean;
 }) {
   return (
     <figure className={cn('m-0', className)}>
@@ -40,7 +43,7 @@ export function Photo({
           sizes={sizes}
           priority={priority}
           loading={priority ? undefined : 'lazy'}
-          className="object-cover"
+          className={cn('object-cover', kenBurns && 'animate-ken-burns')}
         />
       </div>
       {image.caption ? (
